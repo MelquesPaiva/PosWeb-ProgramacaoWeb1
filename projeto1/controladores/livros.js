@@ -10,6 +10,16 @@ function getLivros(req, res, db) {
 function salvarLivro(req, res, db) {
     try {
         const livro = req.body
+        if (!idValido(livro.id)) {
+            res.status(422)
+            return res.send({erro: "ID inválido"})
+        }
+    
+        if (!nomeValido(livro.nome)) {
+            res.status(422)
+            return res.send({erro: "Nome inválido"})
+        }
+
         const livroExiste = db.findById(livro.id)
         if (livroExiste) {
             res.status(400)
@@ -26,6 +36,11 @@ function salvarLivro(req, res, db) {
 
 function getLivroById(req, res, db) {
     try {
+        if (!idValido(req.params.id)) {
+            res.status(422)
+            return res.send({erro: "ID inválido"})
+        }
+
         res.send(db.findById(req.params.id))
     } catch (error) {
         res.status(500)
@@ -36,6 +51,11 @@ function getLivroById(req, res, db) {
 function removeLivro(req, res, db) {
     try {
         const id = req.params.id
+        if (!idValido(id)) {
+            res.status(422)
+            return res.send({erro: "ID inválido"})
+        }
+
         const livroRemovido = db.delete(id)
         if (livroRemovido) {
             res.send({status: "Livro removido com sucesso"})
@@ -52,6 +72,11 @@ function removeLivro(req, res, db) {
 function atualizarLivro(req, res, db) {
     try {
         const id = req.params.id
+        if (!idValido(id)) {
+            res.status(422)
+            return res.send({erro: "ID inválido"})
+        }
+
         const livroAtualizado = req.body
         const sucesso = db.update(id, livroAtualizado)
         if (sucesso) {
@@ -64,6 +89,20 @@ function atualizarLivro(req, res, db) {
         res.status(500)
         res.send({erro: error.message})
     }
+}
+
+function idValido(id) {
+    if (id && Number(id)) {
+        return true
+    }
+    return false
+}
+
+function nomeValido(nome) {
+    if (nome && nome.length > 0) {
+        return true
+    }
+    return false
 }
 
 module.exports = {
