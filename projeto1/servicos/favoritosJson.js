@@ -29,7 +29,7 @@ class FavoritosJson extends Database {
         const favoritos = this.findAll()
         const favoritoParaRemover = favoritos.find((favorito) => favorito.id_livro == id)
         if (favoritoParaRemover) {
-            const favoritosAtualizados = favoritos.find((favorito) => favorito.id_livro != favoritoParaRemover.id_livro)
+            const favoritosAtualizados = favoritos.filter((favorito) => favorito.id_livro != favoritoParaRemover.id_livro)
             if (favoritosAtualizados) {
                 fs.writeFileSync(caminhoJson, JSON.stringify(favoritosAtualizados))
             } else {

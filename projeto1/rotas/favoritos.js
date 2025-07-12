@@ -19,6 +19,10 @@ router.post('/', (req, res) => {
     salvarFavorito(req, res, favoritosDb, livrosDb)
 });
 
+router.post('/:id', (req, res) => {
+    salvarFavorito(req, res, favoritosDb, livrosDb)
+});
+
 router.delete('/:id', (req, res) => {
     removeFavorito(req, res, favoritosDb)
 });

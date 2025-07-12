@@ -9,7 +9,12 @@ function getFavoritos(req, res, db) {
 
 function salvarFavorito(req, res, dbFavorito, dbLivro) {
     try {
-        const favorito = req.body
+        let favorito = req.body
+        let id = req.params.id
+        if (id) {
+            favorito = {id_livro: id}
+        }
+
         if (!idValido(favorito.id_livro)) {
             res.status(422)
             return res.send({erro: "ID inválido"})
