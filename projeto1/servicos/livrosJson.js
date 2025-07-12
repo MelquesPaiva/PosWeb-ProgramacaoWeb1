@@ -43,9 +43,9 @@ class LivrosJsonDatabase extends Database {
     }
     
     delete(id) {
-        const livroParaRemover = this.findById(id)
+        const livros = this.findAll()
+        const livroParaRemover = livros.find((livro) => livro.id == id)
         if (livroParaRemover) {
-            const livros = this.findAll()
             const livrosAtualizados = livros.filter((livro) => livro.id != id)
             fs.writeFileSync(caminhoJson, JSON.stringify(livrosAtualizados))
             return true
