@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getLivros, salvarLivros, getLivrosById } = require('../controladores/livros');
+const { getLivros, salvarLivro, getLivroById, removeLivro} = require('../controladores/livros');
 const { LivrosJsonDatabase } = require('../servicos/livrosJson');
 
 const router = Router();
@@ -10,19 +10,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    getLivrosById(req, res, livrosDb)
+    getLivroById(req, res, livrosDb)
 })
 
 router.post('/', (req, res) => {
-    salvarLivros(req, res, livrosDb)
+    salvarLivro(req, res, livrosDb)
 });
 
 router.patch('/', (req, res) => {
     res.send('List of books PATCH');
 });
 
-router.delete('/', (req, res) => {
-    res.send('List of books DELETE');
+router.delete('/:id', (req, res) => {
+    removeLivro(req, res, livrosDb)
 });
 
 module.exports = router

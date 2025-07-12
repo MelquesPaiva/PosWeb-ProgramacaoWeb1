@@ -23,6 +23,23 @@ class LivrosJsonDatabase extends Database {
         livros.push(livro)
         fs.writeFileSync(caminhoJson, JSON.stringify(livros))
     }
+
+    /** @override */
+    update(id, livroAtualizado) {
+
+    }
+    
+    delete(id) {
+        const livroParaRemover = this.findById(id)
+        if (livroParaRemover) {
+            const livros = this.findAll()
+            const livrosAtualizados = livros.filter((livro) => livro.id != id)
+            fs.writeFileSync(caminhoJson, JSON.stringify(livrosAtualizados))
+            return true
+        }
+
+        return false
+    }
 }
 
 module.exports = {

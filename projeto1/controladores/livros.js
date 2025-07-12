@@ -7,7 +7,7 @@ function getLivros(req, res, db) {
     }
 }
 
-function salvarLivros(req, res, db) {
+function salvarLivro(req, res, db) {
     try {
         const livro = req.body
         const livroExiste = db.findById(livro.id)
@@ -24,7 +24,7 @@ function salvarLivros(req, res, db) {
     }
 }
 
-function getLivrosById(req, res, db) {
+function getLivroById(req, res, db) {
     try {
         res.send(db.findById(req.params.id))
     } catch (error) {
@@ -33,8 +33,24 @@ function getLivrosById(req, res, db) {
     }
 }
 
+function removeLivro(req, res, db) {
+    try {
+        const id = req.params.id
+        const livroRemovido = db.delete(id)
+        if (livroRemovido) {
+            res.send({status: "Livro removido com sucesso"})
+            return
+        }
+        res.status(404)
+        res.send({erro: "Livro não encontrado"})
+    } catch (error) {
+        res.status(500)
+        res.send({erro: error.message})
+    }
+}
 module.exports = {
     getLivros,
-    salvarLivros,
-    getLivrosById
+    salvarLivro,
+    getLivroById,
+    removeLivro
 }
