@@ -20,16 +20,16 @@ class FavoritosJson extends Database {
     /** @override */
     findById(id) {
         const favoritos = this.findAll()
-        const favorito = favoritos.find(( favorito ) => favorito.id_livro == id)
+        const favorito = favoritos.find(( favorito ) => favorito.id == id)
         return favorito
     }
 
     /** @override */
     delete(id) {
         const favoritos = this.findAll()
-        const favoritoParaRemover = favoritos.find((favorito) => favorito.id_livro == id)
+        const favoritoParaRemover = favoritos.find((favorito) => favorito.id == id)
         if (favoritoParaRemover) {
-            const favoritosAtualizados = favoritos.filter((favorito) => favorito.id_livro != favoritoParaRemover.id_livro)
+            const favoritosAtualizados = favoritos.filter((favorito) => favorito.id != favoritoParaRemover.id)
             if (favoritosAtualizados) {
                 fs.writeFileSync(caminhoJson, JSON.stringify(favoritosAtualizados))
             } else {

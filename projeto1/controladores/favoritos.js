@@ -32,7 +32,7 @@ function salvarFavorito(req, res, dbFavorito, dbLivro) {
             return res.send({erro: "Livro já foi favoritado"})
         }
 
-        dbFavorito.save(favorito)
+        dbFavorito.save(livro)
         res.send({status: "Sucesso"})
     } catch (error) {
         res.status(500)
