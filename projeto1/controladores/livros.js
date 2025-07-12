@@ -9,7 +9,14 @@ function getLivros(req, res, db) {
 
 function salvarLivros(req, res, db) {
     try {
-        db.save(req.body)
+        const livro = req.body
+        const livroExiste = db.findById(livro.id)
+        if (livroExiste) {
+            res.status(400)
+            return res.send({erro: "Livro já existe"})
+        }
+
+        db.save(livro)
         res.send({status: "Sucesso"})
     } catch (error) {
         res.status(500)

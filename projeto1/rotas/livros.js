@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { getLivros, salvarLivros, getLivrosById } = require('../controladores/livros');
-const { LivrosJsonDatabase } = require('../servicos/livros_json');
+const { LivrosJsonDatabase } = require('../servicos/livrosJson');
 
 const router = Router();
 const livrosDb = new LivrosJsonDatabase()
