@@ -48,9 +48,28 @@ function removeLivro(req, res, db) {
         res.send({erro: error.message})
     }
 }
+
+function atualizarLivro(req, res, db) {
+    try {
+        const id = req.params.id
+        const livroAtualizado = req.body
+        const sucesso = db.update(id, livroAtualizado)
+        if (sucesso) {
+            res.send({status: "Livro atualizado com sucesso"})
+            return
+        }
+        res.status(404)
+        res.send({erro: "Livro não encontrado"})
+    } catch (error) {
+        res.status(500)
+        res.send({erro: error.message})
+    }
+}
+
 module.exports = {
     getLivros,
     salvarLivro,
     getLivroById,
-    removeLivro
+    removeLivro,
+    atualizarLivro
 }

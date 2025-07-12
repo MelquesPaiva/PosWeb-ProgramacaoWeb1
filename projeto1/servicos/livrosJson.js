@@ -26,7 +26,20 @@ class LivrosJsonDatabase extends Database {
 
     /** @override */
     update(id, livroAtualizado) {
+        let livros = this.findAll()
+        const livroIndex = livros.findIndex((livro) => livro.id == id)
+        if (livroIndex === -1) {
+            return false
+        }
 
+        const conteudoAtualizado = {
+            ...livros[livroIndex],
+            ...livroAtualizado
+        }
+    
+        livros[livroIndex] = conteudoAtualizado
+        fs.writeFileSync(caminhoJson, JSON.stringify(livros))
+        return true
     }
     
     delete(id) {
