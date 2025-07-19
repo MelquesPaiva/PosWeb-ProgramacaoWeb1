@@ -71,13 +71,6 @@ async function removeFavorito(req, res, db) {
     }
 }
 
-function idValido(id) {
-    if (id && Number(id)) {
-        return true
-    }
-    return false
-}
-
 export {
     getFavoritos,
     salvarFavorito,
