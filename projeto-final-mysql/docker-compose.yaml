@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql
+    container_name: posweb-projeto-livros
+    restart: always
+    hostname: posweb-projeto-livros
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: posweb_programacao1_mysql
+    volumes:
+      - ./bin/init.sql:/docker-entrypoint-initdb.d/init.sqld
